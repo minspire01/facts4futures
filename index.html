@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facts for Futures — A Daily Fact. A Better Tomorrow.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #FDFAF3;
+    --warm-white: #FFF9EE;
+    --amber: #F5A623;
+    --amber-dark: #C4831A;
+    --amber-light: #FDE8B4;
+    --ink: #1C1208;
+    --ink-muted: #5C4A2A;
+    --ink-faint: #9C8260;
+    --sage: #3D6B57;
+    --sage-light: #E2EEE8;
+    --coral: #E8533A;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 5%; border-bottom: 1.5px solid var(--amber-light); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; letter-spacing: -0.02em; color: var(--ink); text-decoration: none; }
+  .nav-logo span { color: var(--amber-dark); }
+  nav ul { display: flex; gap: 2rem; list-style: none; }
+  nav ul a { text-decoration: none; color: var(--ink-muted); font-size: 0.88rem; font-weight: 500; letter-spacing: 0.03em; transition: color 0.2s; }
+  nav ul a:hover { color: var(--amber-dark); }
+  .nav-cta { background: var(--ink); color: var(--cream) !important; padding: 0.5rem 1.2rem; border-radius: 100px; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--amber-dark) !important; color: var(--cream) !important; }
+  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding: 5rem 5% 4rem; max-width: 1200px; margin: 0 auto; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); background: var(--sage-light); padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 1.5rem; }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--sage); }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 900; line-height: 1.08; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 1.5rem; }
+  .hero h1 em { font-style: italic; color: var(--amber-dark); }
+  .hero-sub { font-size: 1.05rem; color: var(--ink-muted); line-height: 1.7; max-width: 460px; margin-bottom: 2.5rem; font-weight: 300; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.6rem; background: var(--amber-dark); color: white; text-decoration: none; padding: 0.9rem 2rem; border-radius: 100px; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.02em; transition: transform 0.15s, background 0.2s; border: none; cursor: pointer; white-space: nowrap; font-family: 'DM Sans', sans-serif; }
+  .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
+  .phone-wrap { display: flex; justify-content: center; align-items: center; position: relative; }
+  .phone-bg-blob { position: absolute; width: 340px; height: 340px; background: var(--amber-light); border-radius: 50%; z-index: 0; opacity: 0.6; }
+  .phone { position: relative; z-index: 1; width: 240px; background: #111; border-radius: 36px; padding: 14px; box-shadow: 0 30px 70px rgba(28,18,8,0.25); animation: float 5s ease-in-out infinite; }
+  .phone-inner { background: var(--warm-white); border-radius: 26px; overflow: hidden; min-height: 430px; padding-top: 12px; }
+  .phone-status { display: flex; justify-content: space-between; align-items: center; padding: 0 16px 8px; font-size: 10px; font-weight: 600; color: var(--ink); }
+  .phone-header { background: #F2F2F2; padding: 10px 16px; border-bottom: 0.5px solid #E0E0E0; text-align: center; }
+  .phone-header .contact-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+  .phone-header .contact-sub { font-size: 10px; color: #888; }
+  .phone-messages { padding: 16px 12px; display: flex; flex-direction: column; gap: 10px; }
+  .msg { background: #E9E9EB; border-radius: 16px 16px 16px 4px; padding: 10px 13px; font-size: 11.5px; line-height: 1.5; color: var(--ink); max-width: 90%; }
+  .msg .fact-label { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber-dark); margin-bottom: 4px; }
+  .msg-badge { display: inline-block; background: var(--amber-light); color: var(--amber-dark); font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 100px; margin-top: 6px; letter-spacing: 0.05em; }
+  .ticker { background: var(--ink); color: var(--amber-light); padding: 0.7rem 0; overflow: hidden; white-space: nowrap; }
+  .ticker-inner { display: inline-block; animation: ticker 30s linear infinite; font-size: 0.82rem; letter-spacing: 0.08em; }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .ticker-sep { margin: 0 2rem; opacity: 0.4; }
+  .section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.75rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 900; line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1rem; max-width: 560px; }
+  .section-title em { font-style: italic; color: var(--amber-dark); }
+  .section-sub { font-size: 1rem; color: var(--ink-muted); font-weight: 300; max-width: 500px; margin-bottom: 3.5rem; line-height: 1.75; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+  .step { display: flex; flex-direction: column; gap: 1rem; padding: 2rem; background: white; border-radius: 20px; border: 1.5px solid var(--amber-light); transition: transform 0.2s, border-color 0.2s; }
+  .step:hover { transform: translateY(-3px); border-color: var(--amber); }
+  .step-num { width: 42px; height: 42px; border-radius: 12px; background: var(--amber-light); color: var(--amber-dark); font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; }
+  .step h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
+  .step p { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.7; font-weight: 300; }
+  .mission-strip { background: var(--sage); color: white; padding: 5rem 5%; }
+  .mission-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .mission-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.75rem; }
+  .mission-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 900; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 1.25rem; color: white; }
+  .mission-title em { font-style: italic; color: #A8D4C0; }
+  .mission-body { font-size: 0.95rem; color: rgba(255,255,255,0.75); line-height: 1.8; font-weight: 300; margin-bottom: 1.5rem; }
+  .mission-link { color: #A8D4C0; font-size: 0.88rem; font-weight: 500; text-decoration: none; letter-spacing: 0.03em; border-bottom: 1px solid #A8D4C0; padding-bottom: 1px; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .stat { padding: 1.75rem; background: rgba(255,255,255,0.1); border-radius: 16px; border: 1px solid rgba(255,255,255,0.15); }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; line-height: 1; color: white; margin-bottom: 0.5rem; }
+  .stat-num span { font-size: 1.6rem; }
+  .stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.5; font-weight: 300; }
+  .facts-section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+  .facts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .fact-card { background: white; border-radius: 20px; padding: 1.75rem; border: 1.5px solid #F0E8D0; position: relative; overflow: hidden; transition: transform 0.2s; }
+  .fact-card:hover { transform: translateY(-3px); }
+  .fact-card::before { content: '\201C'; font-family: 'Playfair Display', serif; font-size: 6rem; color: var(--amber-light); position: absolute; top: -1.5rem; left: 1rem; line-height: 1; pointer-events: none; }
+  .fact-category { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber-dark); margin-bottom: 1rem; position: relative; }
+  .fact-card p { font-size: 0.92rem; color: var(--ink-muted); line-height: 1.75; font-weight: 300; position: relative; }
+  .pricing-section { padding: 5rem 5%; background: var(--warm-white); border-top: 1.5px solid var(--amber-light); border-bottom: 1.5px solid var(--amber-light); }
+  .pricing-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .pricing-card { background: white; border: 2px solid var(--amber); border-radius: 24px; padding: 2.5rem; text-align: center; position: relative; }
+  .pricing-badge { position: absolute; top: -1rem; left: 50%; transform: translateX(-50%); background: var(--amber-dark); color: white; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 1.1rem; border-radius: 100px; white-space: nowrap; }
+  .price-main { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900; color: var(--ink); line-height: 1; margin: 1.5rem 0 0.25rem; }
+  .price-main sup { font-size: 2rem; vertical-align: super; }
+  .price-period { font-size: 0.88rem; color: var(--ink-faint); margin-bottom: 2rem; letter-spacing: 0.03em; }
+  .price-features { list-style: none; margin-bottom: 2rem; text-align: left; display: flex; flex-direction: column; gap: 0.85rem; }
+  .price-features li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; color: var(--ink-muted); font-weight: 300; }
+  .price-features li::before { content: ''; display: inline-block; width: 18px; height: 18px; min-width: 18px; border-radius: 50%; background: var(--sage-light); border: 2px solid var(--sage); margin-top: 2px; }
+  .pricing-faq h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--ink); margin-bottom: 2rem; line-height: 1.3; }
+  .faq-item { border-bottom: 1px solid var(--amber-light); padding: 1.2rem 0; }
+  .faq-q { font-size: 0.92rem; font-weight: 500; color: var(--ink); margin-bottom: 0.5rem; }
+  .faq-a { font-size: 0.88rem; color: var(--ink-muted); line-height: 1.7; font-weight: 300; }
+  .signup-section { padding: 6rem 5%; text-align: center; max-width: 700px; margin: 0 auto; }
+  .signup-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1rem; color: var(--ink); }
+  .signup-section h2 em { font-style: italic; color: var(--amber-dark); }
+  .signup-section p { font-size: 1rem; color: var(--ink-muted); margin-bottom: 2.5rem; font-weight: 300; line-height: 1.7; }
+  .signup-form { display: flex; gap: 0.75rem; max-width: 420px; margin: 0 auto 1rem; }
+  .signup-form input { flex: 1; padding: 0.85rem 1.25rem; border-radius: 100px; border: 1.5px solid var(--amber-light); background: white; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--ink); outline: none; transition: border-color 0.2s; }
+  .signup-form input:focus { border-color: var(--amber); }
+  .signup-form input::placeholder { color: var(--ink-faint); }
+  .small-note { font-size: 0.78rem; color: var(--ink-faint); }
+  footer { background: var(--ink); color: rgba(255,255,255,0.5); padding: 2.5rem 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-size: 0.82rem; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 900; color: white; text-decoration: none; }
+  .footer-logo span { color: var(--amber); }
+  footer nav ul { display: flex; gap: 1.5rem; border-bottom: none; padding: 0; background: transparent; }
+  footer nav ul a { color: rgba(255,255,255,0.45); font-size: 0.8rem; }
+  footer nav ul a:hover { color: var(--amber); }
+  @media (max-width: 800px) {
+    .hero, .steps, .facts-grid, .mission-inner, .pricing-inner { grid-template-columns: 1fr; }
+    .hero { gap: 3rem; padding: 3rem 5%; }
+    .phone-wrap { display: none; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .signup-form { flex-direction: column; }
+    .signup-form input, .signup-form .btn-primary { border-radius: 12px; width: 100%; justify-content: center; }
+    nav ul { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">facts<span>·</span>futures</a>
+  <ul>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#mission">Our mission</a></li>
+    <li><a href="#examples">Sample facts</a></li>
+    <li><a href="#signup" class="nav-cta">Get started →</a></li>
+  </ul>
+</nav>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    ✦ A daily fact delivered to your phone &nbsp;<span class="ticker-sep">|</span>&nbsp; Just $1 a month &nbsp;<span class="ticker-sep">|</span>&nbsp; 100% of proceeds fund children's literacy &nbsp;<span class="ticker-sep">|</span>&nbsp; Cancel anytime &nbsp;<span class="ticker-sep">|</span>&nbsp; No app needed — just text messages &nbsp;<span class="ticker-sep">|</span>&nbsp; ✦ A daily fact delivered to your phone &nbsp;<span class="ticker-sep">|</span>&nbsp; Just $1 a month &nbsp;<span class="ticker-sep">|</span>&nbsp; 100% of proceeds fund children's literacy &nbsp;<span class="ticker-sep">|</span>&nbsp; Cancel anytime &nbsp;<span class="ticker-sep">|</span>&nbsp; No app needed — just text messages &nbsp;<span class="ticker-sep">|</span>&nbsp;
+  </div>
+</div>
+
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Text-based · No app needed</div>
+    <h1>One fact.<br>Every day.<br><em>One dollar</em><br>a month.</h1>
+    <p class="hero-sub">Facts for Futures delivers a delightful, surprising fact to your phone each morning — and every penny goes toward getting books into the hands of kids who need them most.</p>
+    <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+      <a href="#signup" class="btn-primary">Subscribe for $1 / mo →</a>
+    </div>
+    <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--ink-faint);"><strong style="color: var(--ink-muted);">100% of proceeds</strong> donated to children's literacy nonprofits. Cancel anytime.</p>
+  </div>
+  <div class="phone-wrap">
+    <div class="phone-bg-blob"></div>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="phone-status"><span>9:07 AM</span><span>●●● 100%</span></div>
+        <div class="phone-header">
+          <div class="contact-name">Facts for Futures</div>
+          <div class="contact-sub">Daily fact — tap to read</div>
+        </div>
+        <div class="phone-messages">
+          <div class="msg">
+            <div class="fact-label">🌍 Today's Fact</div>
+            Honey never spoils. Archaeologists have found 3,000-year-old honey in Egyptian tombs that was still perfectly edible.
+            <br><span class="msg-badge">April 8 · Science</span>
+          </div>
+          <div class="msg" style="background: #D1ECDF;">
+            <div class="fact-label" style="color: var(--sage);">🌊 Yesterday</div>
+            The ocean produces more than half of the world's oxygen — more than all the rainforests combined.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how">
+  <div class="section-label">How it works</div>
+  <h2 class="section-title">Learning made <em>ridiculously</em> simple</h2>
+  <p class="section-sub">No apps. No feeds. No doom-scrolling. Just one tiny, wonderful thing to know each morning.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Sign up with your phone number</h3>
+      <p>Enter your number and we'll text you a quick confirmation. Takes 30 seconds. No account needed.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Wake up to a great fact</h3>
+      <p>Every morning, a new fascinating fact lands in your messages — science, history, language, nature, and more.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Your dollar goes to work</h3>
+      <p>Each month, your $1 joins thousands of others to fund books, tutoring programs, and reading resources for children.</p>
+    </div>
+  </div>
+</section>
+
+<section class="mission-strip" id="mission">
+  <div class="mission-inner">
+    <div>
+      <div class="mission-label">Our mission</div>
+      <h2 class="mission-title">Curiosity is a gift.<br><em>Every child</em> deserves it.</h2>
+      <p class="mission-body">One in five adults in the U.S. struggles to read. We believe the path to fixing that starts early — with books, with stories, and with adults who believe reading matters.</p>
+      <p class="mission-body">Facts for Futures donates 100% of subscription revenue to vetted children's literacy nonprofits including First Book, Reading Partners, and local community libraries. No salaries cut from your dollar. No overhead games.</p>
+      <a href="#" class="mission-link">See our partner organizations →</a>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">12<span>k+</span></div>
+        <div class="stat-label">Subscribers spreading curiosity daily</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">$1<span>00%</span></div>
+        <div class="stat-label">Of proceeds donated every single month</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3<span>k+</span></div>
+        <div class="stat-label">Books purchased for kids in 2024</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">365</div>
+        <div class="stat-label">Fascinating facts delivered per year</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="facts-section" id="examples">
+  <div class="section-label">Sample facts</div>
+  <h2 class="section-title">What kinds of facts?</h2>
+  <p class="section-sub">We hand-curate each one. Every fact is verified, surprising, and genuinely delightful.</p>
+  <div class="facts-grid">
+    <div class="fact-card">
+      <div class="fact-category">🧪 Science</div>
+      <p>A teaspoon of a neutron star would weigh about 10 million tons — roughly the same as a mountain.</p>
+    </div>
+    <div class="fact-card">
+      <div class="fact-category">🏛️ History</div>
+      <p>Cleopatra lived closer in time to the moon landing than to the construction of the Great Pyramid of Giza.</p>
+    </div>
+    <div class="fact-card">
+      <div class="fact-category">🐙 Animals</div>
+      <p>Octopuses have three hearts, blue blood, and nine brains — one central brain and one mini-brain in each arm.</p>
+    </div>
+    <div class="fact-card">
+      <div class="fact-category">🌍 Geography</div>
+      <p>There are more possible iterations of a game of chess than there are atoms in the observable universe.</p>
+    </div>
+    <div class="fact-card">
+      <div class="fact-category">🗣️ Language</div>
+      <p>"Petrichor" is the word for the distinctive smell of rain on dry earth — from Greek petra (stone) and ichor (the fluid in gods' veins).</p>
+    </div>
+    <div class="fact-card">
+      <div class="fact-category">🧠 Psychology</div>
+      <p>The "doorway effect" is real — walking through a doorway causes the brain to file away recent memories, making you forget why you came in.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-faq">
+      <h3>Simple answers to simple questions</h3>
+      <div class="faq-item">
+        <div class="faq-q">Do I need to download anything?</div>
+        <div class="faq-a">Nope. Facts arrive as plain text messages to your phone. If you can receive a text, you're good to go.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What time do facts arrive?</div>
+        <div class="faq-a">Every morning between 8–9 AM in your local time zone. A nice way to start the day.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do you choose the facts?</div>
+        <div class="faq-a">Our small editorial team reviews and curates each fact by hand. We prioritize accuracy, wonder, and variety across topics.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Where exactly does the money go?</div>
+        <div class="faq-a">We donate 100% of net subscription revenue to vetted children's literacy nonprofits and publish a transparency report every quarter.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I cancel anytime?</div>
+        <div class="faq-a">Yes — text STOP at any time and you'll be unsubscribed instantly, no questions asked.</div>
+      </div>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-badge">One plan. One price. One mission.</div>
+      <div style="font-size: 0.85rem; color: var(--ink-faint); margin-top: 1.5rem; font-weight: 300;">Monthly subscription</div>
+      <div class="price-main"><sup>$</sup>1</div>
+      <div class="price-period">per month · billed monthly</div>
+      <ul class="price-features">
+        <li>One curated fact delivered every single day</li>
+        <li>Hand-picked by a real human editorial team</li>
+        <li>Works on any phone, any carrier</li>
+        <li>100% of proceeds to children's literacy</li>
+        <li>Cancel anytime by texting STOP</li>
+        <li>Quarterly transparency reports</li>
+      </ul>
+      <a href="#signup" class="btn-primary" style="width: 100%; justify-content: center; font-size: 1rem; padding: 1rem;">Start for $1 / month →</a>
+      <p style="font-size: 0.78rem; color: var(--ink-faint); margin-top: 1rem;">US phone numbers only · Standard SMS rates apply</p>
+    </div>
+  </div>
+</section>
+
+<section class="signup-section" id="signup">
+  <h2>Ready to learn something <em>wonderful</em> tomorrow morning?</h2>
+  <p>Enter your phone number and we'll send your first fact within 24 hours. $1/month. Unsubscribe anytime.</p>
+  <div class="signup-form">
+    <input type="tel" placeholder="(555) 000-0000" id="phone-input" />
+    <button class="btn-primary" id="subscribe-btn" type="button">Subscribe →</button>
+  </div>
+  <p class="small-note" id="legal-note">By subscribing, you agree to receive daily SMS messages from Facts for Futures. Standard message and data rates may apply. Reply STOP to unsubscribe anytime. US numbers only.</p>
+</section>
+
+<footer>
+  <a href="#" class="footer-logo">facts<span>·</span>futures</a>
+  <nav>
+    <ul>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Transparency</a></li>
+      <li><a href="#">Partners</a></li>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+  <span>© 2025 Facts for Futures. A project built with love.</span>
+</footer>
+
+<script>
+  document.getElementById('subscribe-btn').addEventListener('click', function() {
+    var input = document.getElementById('phone-input');
+    var val = input.value.trim();
+    if (!val) { input.style.borderColor = '#E8533A'; input.focus(); return; }
+    input.style.borderColor = '#3D6B57';
+    this.textContent = '🎉 You\'re in!';
+    this.style.background = '#3D6B57';
+    this.disabled = true;
+    input.disabled = true;
+    setTimeout(function() {
+      var note = document.getElementById('legal-note');
+      note.textContent = 'Welcome to Facts for Futures! Your first fact arrives tomorrow morning. Thank you for helping build a more literate world. 💛';
+      note.style.color = '#3D6B57';
+      note.style.fontWeight = '400';
+      note.style.fontSize = '0.95rem';
+    }, 400);
+  });
+</script>
+</body>
+</html>
