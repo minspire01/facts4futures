@@ -299,6 +299,7 @@
   <h2>Ready to learn something <em>wonderful</em> tomorrow morning?</h2>
   <p>Enter your phone number and we'll send your first fact within 24 hours. $1/month. Unsubscribe anytime.</p>
   <div class="signup-form">
+    <input type="text" placeholder="Your name" id="name-input" />
     <input type="tel" placeholder="(555) 000-0000" id="phone-input" />
     <button class="btn-primary" id="subscribe-btn" type="button">Subscribe →</button>
   </div>
@@ -316,9 +317,12 @@
 
   document.getElementById('subscribe-btn').addEventListener('click', function() {
     var btn = this;
-    var input = document.getElementById('phone-input');
-    var val = input.value.trim();
-    if (!val) { input.style.borderColor = '#E8533A'; input.focus(); return; }
+    var nameInput = document.getElementById('name-input');
+    var phoneInput = document.getElementById('phone-input');
+    var name = nameInput.value.trim();
+    var phone = phoneInput.value.trim();
+    if (!name) { nameInput.style.borderColor = '#E8533A'; nameInput.focus(); return; }
+    if (!phone) { phoneInput.style.borderColor = '#E8533A'; phoneInput.focus(); return; }
 
     btn.textContent = 'Sending...';
     btn.disabled = true;
@@ -326,13 +330,15 @@
     fetch('https://formspree.io/f/' + FORMSPREE_ID, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ phone: val })
+      body: JSON.stringify({ name: name, phone: phone })
     }).then(function(res) {
       if (res.ok) {
-        input.style.borderColor = '#3D6B57';
+        nameInput.style.borderColor = '#3D6B57';
+        phoneInput.style.borderColor = '#3D6B57';
         btn.textContent = '\ud83c\udf89 You\u2019re in!';
         btn.style.background = '#3D6B57';
-        input.disabled = true;
+        nameInput.disabled = true;
+        phoneInput.disabled = true;
         setTimeout(function() {
           var note = document.getElementById('legal-note');
           note.textContent = 'Welcome to Facts for Futures! Your first fact arrives tomorrow morning. Thank you for helping build a more literate world. \ud83d\udc9b';
@@ -343,7 +349,7 @@
       } else {
         btn.textContent = 'Subscribe \u2192';
         btn.disabled = false;
-        input.style.borderColor = '#E8533A';
+        phoneInput.style.borderColor = '#E8533A';
       }
     }).catch(function() {
       btn.textContent = 'Subscribe \u2192';
