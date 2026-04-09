@@ -320,22 +320,45 @@
 </footer>
 
 <script>
+  // Replace YOUR_FORM_ID with your Formspree form ID (e.g. "xABCDEFG")
+  var FORMSPREE_ID = 'mojpzvga';
+
   document.getElementById('subscribe-btn').addEventListener('click', function() {
+    var btn = this;
     var input = document.getElementById('phone-input');
     var val = input.value.trim();
     if (!val) { input.style.borderColor = '#E8533A'; input.focus(); return; }
-    input.style.borderColor = '#3D6B57';
-    this.textContent = '🎉 You\'re in!';
-    this.style.background = '#3D6B57';
-    this.disabled = true;
-    input.disabled = true;
-    setTimeout(function() {
-      var note = document.getElementById('legal-note');
-      note.textContent = 'Welcome to Facts for Futures! Your first fact arrives tomorrow morning. Thank you for helping build a more literate world. 💛';
-      note.style.color = '#3D6B57';
-      note.style.fontWeight = '400';
-      note.style.fontSize = '0.95rem';
-    }, 400);
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ phone: val })
+    }).then(function(res) {
+      if (res.ok) {
+        input.style.borderColor = '#3D6B57';
+        btn.textContent = '\ud83c\udf89 You\u2019re in!';
+        btn.style.background = '#3D6B57';
+        input.disabled = true;
+        setTimeout(function() {
+          var note = document.getElementById('legal-note');
+          note.textContent = 'Welcome to Facts for Futures! Your first fact arrives tomorrow morning. Thank you for helping build a more literate world. \ud83d\udc9b';
+          note.style.color = '#3D6B57';
+          note.style.fontWeight = '400';
+          note.style.fontSize = '0.95rem';
+        }, 400);
+      } else {
+        btn.textContent = 'Subscribe \u2192';
+        btn.disabled = false;
+        input.style.borderColor = '#E8533A';
+      }
+    }).catch(function() {
+      btn.textContent = 'Subscribe \u2192';
+      btn.disabled = false;
+      input.style.borderColor = '#E8533A';
+    });
   });
 </script>
 </body>
